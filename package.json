@@ -1,0 +1,32 @@
+{
+  "name": "chaimel",
+  "version": "1.0.0",
+  "description": "Expose chai expect chains as camelCase instead of series.of.dots",
+  "main": "chaimel.js",
+  "dependencies": {
+    "chai": "^1"
+  },
+  "devDependencies": {
+    "eslint": "0.10.0",
+    "mocha": "2.0.1"
+  },
+  "scripts": {
+    "test": "mocha *.test.js && eslint *.js",
+    "lint": "eslint *.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/focusaurus/chai-expect-camel.git"
+  },
+  "keywords": [
+    "chai",
+    "expect",
+    "camelCase"
+  ],
+  "author": "Peter Lyons <pete@peterlyons.com> (http://peterlyons.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/focusaurus/chaimel/issues"
+  },
+  "homepage": "https://github.com/focusaurus/chaimel"
+}
