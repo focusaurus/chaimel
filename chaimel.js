@@ -1,23 +1,28 @@
-// var chai = require("chai");
-var expect = require("chai").expect;
-var ssfi = expect().__flags.ssfi;
-var addMethod = ssfi.addMethod.bind(ssfi);
+var chai = require("chai");
+var Assertion = chai.Assertion.prototype;
+
+var properties = [
+  "arguments",
+  "empty",
+  "false",
+  "null",
+  "ok",
+  "true",
+  "undefined"
+];
+
 var beThat = [
   "above",
-  "arguments",
+  "an.instanceof",
+  "an.instanceOf",
   "at.least",
   "at.most",
   "below",
   "closeTo",
-  "empty",
-  "false",
-  "greater.than",
+  "greaterThan",
+  "instanceOf",
   "instanceof",
-  "less.than",
-  "null",
-  "ok",
-  "true",
-  "undefined",
+  "lessThan",
   "within"
 ];
 
@@ -29,7 +34,6 @@ var chains = [
   "to.deep.have.members",
   "to.equal",
   "to.equal",
-  "to.exist",
   "to.have.deep.property",
   "to.have.keys",
   "to.have.length.above",
@@ -47,41 +51,58 @@ var chains = [
   "to.throw"
 ];
 
-beThat.forEach(function(word) {
-  chains.push("to.be." + word);
-  chains.push("that.is." + word);
+beThat.forEach(function(chain) {
+  chains.push("to.be." + chain);
+  chains.push("that.is." + chain);
 });
 
 function upFirst(word) {
   return word[0].toUpperCase() + word.slice(1);
 }
 
-function camelWords(words) {
+function chainToCamel(chain) {
+  var words = chain.split(".");
   return words[0] + words.slice(1).map(upFirst).join("");
 }
 
-function findChainedMethod(words) {
-  return function _findChainedMethod() {
-    var self = this;
-    var chainedFunc;
-    words.forEach(function(word) {
-      chainedFunc = (chainedFunc || self)[word];
-    });
-    return chainedFunc.apply(this, arguments);
+function buildMethod(utils, chain) {
+  return function _method() {
+    var assert = new chai.Assertion(this._obj);
+    return utils.getPathValue(chain, assert).apply(assert, arguments);
   };
 }
 
-function addCamelMethod(chain) {
-  var words = chain.split(".");
-  var notWords = ["not"].concat(words);
-  // console.log("@bug words", words);
-  addMethod(camelWords(words), findChainedMethod(words));
-  addMethod(camelWords(notWords), findChainedMethod(notWords));
-  // chai.Assertion.prototype[camelWords(words)] = findChainedMeth
+function buildProperty(utils, chain) {
+  function _property() {
+    var obj = utils.flag(this, "object");
+    // console.log("@bug built property called", chain, obj, arguments[0]);
+    utils.getPathValue(chain, new chai.Assertion(obj));
+    return this;
+  }
+  _property.name = "expect property for " + chain;
+  return _property;
 }
 
-chains.forEach(addCamelMethod);
+function chaimel(_chai, utils) {
+  var method = buildMethod.bind(null, utils);
+  chains.forEach(function(chain) {
+    utils.addMethod(Assertion, chainToCamel(chain), method(chain));
+    chain = "not." + chain;
+    utils.addMethod(Assertion, chainToCamel(chain), method(chain));
+  });
+  var property = buildProperty.bind(null, utils);
+  properties.forEach(function (name) {
+    var chain = "to.be." + name;
+    utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+    chain = "not." + chain;
+    utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+  });
+  var chain = "to.exist";
+  utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+  chain = "not." + chain;
+  utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+}
 
-// Special Cases
-addMethod("toBeInstanceOf", findChainedMethod(["to", "be", "instanceof"]));
-module.exports = expect;
+chai.use(chaimel);
+
+module.exports = chai.expect;
