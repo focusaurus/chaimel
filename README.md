@@ -27,6 +27,10 @@ expect(42).notToBeAbove(43);
 
 **No**, I left out abbreviations such as `eql`, `lt` `gt` because I hate abbreviations. Use the full words and use `deepEqual` instead of `eql`. Having both `equal` and `eql` with different semantics is error-prone, hard to remember, and confusing to read.
 
+## Browser Support
+
+The code is designed to work in node.js or in the browser via [browserify](http://browserify.org). If you want vanilla browser support, file and issue and I can add the neccessary boilerplate.
+
 ## Contributing
 
 - tests: `npm test`
