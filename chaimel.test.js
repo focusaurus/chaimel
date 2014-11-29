@@ -32,7 +32,7 @@ describe("the chaimel assertion extensions", function () {
     [42, "toBeOk"],
     [void 0, "toBeUndefined"],
     [42, "toExist"],
-    [void 0, "notToExist"],
+    [void 0, "notToExist"]
   ].forEach(function(set) {
     it("should support " + set[1], function() {
       var assert = expect(set[0]);

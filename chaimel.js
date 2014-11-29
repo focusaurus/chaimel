@@ -26,7 +26,7 @@ var beThat = [
   "within"
 ];
 
-var chains = [
+var paths = [
   "that.is.a",
   "that.is.an",
   "to.contain",
@@ -52,8 +52,8 @@ var chains = [
 ];
 
 beThat.forEach(function(chain) {
-  chains.push("to.be." + chain);
-  chains.push("that.is." + chain);
+  paths.push("to.be." + chain);
+  paths.push("that.is." + chain);
 });
 
 function upFirst(word) {
@@ -73,34 +73,29 @@ function buildMethod(utils, chain) {
 }
 
 function buildProperty(utils, chain) {
-  function _property() {
-    var obj = utils.flag(this, "object");
-    // console.log("@bug built property called", chain, obj, arguments[0]);
-    utils.getPathValue(chain, new chai.Assertion(obj));
-    return this;
-  }
-  _property.name = "expect property for " + chain;
-  return _property;
+  return function _property() {
+    return utils.getPathValue(chain, new chai.Assertion(this._obj));
+  };
 }
 
 function chaimel(_chai, utils) {
   var method = buildMethod.bind(null, utils);
-  chains.forEach(function(chain) {
-    utils.addMethod(Assertion, chainToCamel(chain), method(chain));
-    chain = "not." + chain;
-    utils.addMethod(Assertion, chainToCamel(chain), method(chain));
+  paths.forEach(function(path) {
+    utils.addMethod(Assertion, chainToCamel(path), method(path));
+    path = "not." + path;
+    utils.addMethod(Assertion, chainToCamel(path), method(path));
   });
   var property = buildProperty.bind(null, utils);
   properties.forEach(function (name) {
-    var chain = "to.be." + name;
-    utils.addMethod(Assertion, chainToCamel(chain), property(chain));
-    chain = "not." + chain;
-    utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+    var path = "to.be." + name;
+    utils.addMethod(Assertion, chainToCamel(path), property(path));
+    path = "not." + path;
+    utils.addMethod(Assertion, chainToCamel(path), property(path));
   });
-  var chain = "to.exist";
-  utils.addMethod(Assertion, chainToCamel(chain), property(chain));
-  chain = "not." + chain;
-  utils.addMethod(Assertion, chainToCamel(chain), property(chain));
+  var existPath = "to.exist";
+  utils.addMethod(Assertion, chainToCamel(existPath), property(existPath));
+  existPath = "not." + existPath;
+  utils.addMethod(Assertion, chainToCamel(existPath), property(existPath));
 }
 
 chai.use(chaimel);
