@@ -13,6 +13,7 @@ describe("the chaimel assertion extensions", function () {
     [42, "toBeGreaterThan", 41],
     [42, "notToBeAbove", 43],
     ["abc", "toInclude", "b"],
+    ["abc", "toMatch", /b/],
     [false, "toBeFalse"],
     [true, "toBeTrue"],
     [arguments, "toBeArguments"],
