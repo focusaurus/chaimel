@@ -54,6 +54,7 @@ var paths = [
 beThat.forEach(function(chain) {
   paths.push("to.be." + chain);
   paths.push("that.is." + chain);
+  paths.push("that.is.not." + chain);
 });
 
 function upFirst(word) {

@@ -42,10 +42,16 @@ describe("the chaimel assertion extensions", function () {
   it("should support chaining to thatIsA", function() {
     expect({id: 1}).toHaveProperty("id").thatIsA("number");
   });
+  it("should support chaining to thatIsAn", function() {
+    expect({list: []}).toHaveProperty("list").thatIsAn("array");
+  });
   it("should support chaining to thatIsGreaterThan", function() {
     expect({id: 1}).toHaveProperty("id").thatIsGreaterThan(0);
   });
   it("should support chaining to thatIsAnInstanceOf", function() {
     expect({list: [1, 2]}).toHaveProperty("list").thatIsAnInstanceOf(Array);
+  });
+  it("should support chaining to thatIsNotBelow", function() {
+    expect({count: 9}).toHaveProperty("count").thatIsNotBelow(8);
   });
 });
