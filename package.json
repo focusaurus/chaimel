@@ -1,9 +1,13 @@
 {
   "name": "chaimel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Expose chai expect chains as camelCase instead of series.of.dots",
   "main": "chaimel.js",
-  "files": [".eslintrc", "*.js", "README.md"],
+  "files": [
+    ".eslintrc",
+    "*.js",
+    "README.md"
+  ],
   "peerDependencies": {
     "chai": "^1"
   },
