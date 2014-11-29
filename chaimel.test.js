@@ -25,7 +25,7 @@ describe("the chaimel assertion extensions", function () {
     [[], "toBeAnInstanceof", Array],
     [{foo: 1, bar: 2}, "toHaveKeys", "foo", "bar"],
     [willThrow, "toThrow", Error],
-    [[{id: 1}], "toDeepHaveMembers", [{id: 1}]],
+    [[{id: 1}], "toHaveDeepMembers", [{id: 1}]],
     [{id: 1}, "toHaveProperty", "id", 1],
     [null, "toBeNull"],
     [42, "notToBeNull"],
