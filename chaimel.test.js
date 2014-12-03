@@ -19,6 +19,7 @@ describe("the chaimel assertion extensions", function () {
     [arguments, "toBeArguments"],
     [[1, 2, 3], "toHaveLengthOfAtMost", 3],
     [[1, 2, 3], "toHaveLengthWithin", 2, 4],
+    [[1, 2, 3], "toHaveLength", 3],
     [42, "toBeWithin", 41, 43],
     [[], "toBeInstanceof", Array],
     [[], "toBeInstanceOf", Array],

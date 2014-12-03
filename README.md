@@ -20,6 +20,7 @@ expect(42).notToBeAbove(43);
 - It's out of convention with the standard JavaScript built-in method names
   - `toLowerCase`, `indexOf`, `forEach`,  `hasOwnProperty`
 - It's awkward to speak and hear. Do you say the "dot"s or just imply them?
+- It doesn't work well with text editor autocomplete, whereas `camelCase` does
 - I also personally find this kind of use of `Object.defineProperty` unidiomatic for the golden age of JavaScript. It's fully standard and fine, but my opinion is it fundamentally makes the language more magical and ruby-like and these are drawbacks not advantages.
 - It was pretty quick and easy to create this module, so I did
 

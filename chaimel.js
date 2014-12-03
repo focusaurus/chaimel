@@ -36,6 +36,7 @@ var paths = [
   "to.have.deep.members",
   "to.have.deep.property",
   "to.have.keys",
+  "to.have.length",
   "to.have.length.above",
   "to.have.length.greater.than",
   "to.have.length.of.at.least",
