@@ -29,6 +29,8 @@ var beThat = [
 var paths = [
   "that.is.a",
   "that.is.an",
+  "to.be.a",
+  "to.be.an",
   "to.contain",
   "to.deep.equal",
   "to.equal",
