@@ -2,6 +2,8 @@
 
 [![Build Status](https://semaphoreci.com/api/v1/focusaurus/chaimel/branches/master/badge.svg)](https://semaphoreci.com/focusaurus/chaimel)
 
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 [chai.js](http://chaijs.com/) expect BDD api wrapped with `camelCase` method names instead of `dot.chaining.style`.
 
 Lets you do:
